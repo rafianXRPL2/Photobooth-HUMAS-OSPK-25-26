@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THUVUSBOOTH - Premium Minimalist</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        video { transform: scaleX(-1); }
+        .filter-normal img { filter: none; }
+        .filter-bw img { filter: grayscale(100%) contrast(112%) brightness(102%); }
+        .filter-vintage img { filter: sepia(35%) contrast(105%) brightness(103%); }
+        .filter-cool img { filter: saturate(125%) hue-rotate(12deg); }
+
+        .page-transition {
+            animation: fadeInSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-tr from-white via-[#F0F9FF] to-[#E0F2FE] text-slate-800 min-h-screen flex flex-col justify-between overflow-x-hidden antialiased" style="font-family: Inter, sans-serif;"></body>
+
+    <header class="p-5 bg-blue-600 border-b border-blue-700/50 flex items-center justify-between px-8 shadow-[0_4px_12px_rgba(37,99,235,0.15)]">
+        <h1 class="text-xl font-black tracking-tight text-white flex items-center gap-2">
+            <span>📸</span> THUVUSBOOTH
+        </h1>
+        <div id="camera-widget" class="hidden flex items-center gap-2.5 bg-black/10 px-3.5 py-2 rounded-xl border border-white/10 backdrop-blur-sm">
+            <label class="text-[11px] text-blue-100/90 font-bold uppercase tracking-wider">Source</label>
+            <select id="camera-select" class="bg-transparent text-xs font-bold text-white focus:outline-none cursor-pointer [&>option]:text-slate-800"></select>
+        </div>
+    </header>
+
+    <section id="page-index" class="page-transition container mx-auto px-6 flex flex-col items-center justify-center text-center space-y-8 flex-1">
+        <div class="max-w-xl space-y-5">
+            <span class="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-bold rounded-full border border-blue-200/50">Premium Photobooth Software</span>
+            <h2 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-[1.15]">Capture your true <br>and <span class="text-blue-600">honest moments.</span></h2>
+            <p class="text-slate-500 text-base max-w-sm mx-auto font-medium">Sistem foto instan minimalis dengan dukungan kamera eksternal resolusi tinggi.</p>
+            <div class="pt-4">
+                <button onclick="navigate('page-paket')" class="px-8 py-4 bg-slate-900 hover:bg-blue-600 text-white font-bold text-sm rounded-2xl shadow-lg shadow-blue-200/50 hover:shadow-blue-600/20 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">Start Photo Session</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="page-paket" class="hidden page-transition container mx-auto px-6 flex flex-col items-center justify-center flex-1 space-y-8">
+        <div class="text-center space-y-1">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Select Layout Format</h2>
+            <p class="text-slate-400 text-xs font-medium">Silakan pilih format dan ukuran cetak yang Anda inginkan</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-2xl">
+            <button onclick="pilihPaket('Paket Besar A3')" class="group p-6 bg-white/90 border border-blue-100/80 hover:border-blue-500 rounded-2xl text-left transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-[0_4px_12px_rgba(224,242,254,0.4)] hover:shadow-md h-44">
+                <div>
+                    <div class="w-10 h-10 bg-blue-50/50 rounded-xl flex items-center justify-center border border-blue-100/60 group-hover:bg-blue-100/60 transition-colors"><span class="text-xl">🖼️</span></div>
+                    <h3 class="text-lg font-black mt-4 text-slate-900 group-hover:text-blue-600 transition-colors">Paket Besar A3</h3>
+                </div>
+                <div class="flex items-center justify-between w-full">
+                    <span class="text-xl font-extrabold text-slate-900">Rp 25.000</span>
+                    <span class="text-[11px] font-bold text-blue-600 tracking-wider opacity-80 group-hover:opacity-100 group-hover:translate-x-1 transition-all">PILIH &rarr;</span>
+                </div>
+            </button>
+            <button onclick="pilihPaket('Paket Kecil Strip')" class="group p-6 bg-white/90 border border-blue-100/80 hover:border-blue-500 rounded-2xl text-left transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-[0_4px_12px_rgba(224,242,254,0.4)] hover:shadow-md h-44">
+                <div>
+                    <div class="w-10 h-10 bg-blue-50/50 rounded-xl flex items-center justify-center border border-blue-100/60 group-hover:bg-blue-100/60 transition-colors"><span class="text-xl">🎞️</span></div>
+                    <h3 class="text-lg font-black mt-4 text-slate-900 group-hover:text-blue-600 transition-colors">Paket Kecil Strip</h3>
+                </div>
+                <div class="flex items-center justify-between w-full">
+                    <span class="text-xl font-extrabold text-slate-900">Rp 15.000</span>
+                    <span class="text-[11px] font-bold text-blue-600 tracking-wider opacity-80 group-hover:opacity-100 group-hover:translate-x-1 transition-all">PILIH &rarr;</span>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <section id="page-foto" class="hidden page-transition container mx-auto px-4 py-4 flex flex-col items-center justify-center flex-1 relative">
+        <div class="text-center mb-5 w-full max-w-xl">
+            <div id="status" class="bg-white/90 px-6 py-3.5 rounded-2xl border border-blue-100/80 shadow-sm">
+                <p class="font-bold text-slate-900 text-sm flex items-center justify-center gap-1.5"><span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> Kamera Ready</p>
+                <p class="text-[11px] text-slate-400 font-medium mt-0.5">Sesi akan mengambil <span class="font-bold text-blue-600">5 foto beruntun</span> dengan jeda <span class="font-bold text-blue-600">3 detik</span>.</p>
+            </div>
+        </div>
+        
+        <div class="w-full max-w-xl aspect-[4/3] bg-blue-50/30 rounded-3xl border-4 border-white shadow-xl ring-1 ring-blue-100 flex items-center justify-center relative overflow-hidden">
+            <div id="countdown-overlay" class="absolute inset-0 bg-transparent flex items-center justify-center z-20 hidden">
+                <span id="countdown-number" class="text-9xl font-black text-white drop-shadow-[0_6px_30px_rgba(0,0,0,0.7)] tracking-tighter animate-ping">3</span>
+            </div>
+            <div id="flash-overlay" class="absolute inset-0 bg-white z-30 opacity-0 transition-opacity duration-75 pointer-events-none"></div>
+            <video id="webcam" class="w-full h-full object-cover" autoplay playsinline></video>
+            <canvas id="capture-canvas" class="hidden" width="640" height="480"></canvas>
+        </div>
+        
+        <div class="mt-6"><button id="btn-jepret" onclick="startPhotoSession()" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-full shadow-lg shadow-blue-600/20 transition-colors cursor-pointer">Mulai Ambil Foto 📸</button></div>
+    </section>
+
+    <section id="page-pilah" class="hidden page-transition container mx-auto px-6 py-4 flex flex-col items-center justify-center flex-1 space-y-6">
+        <div class="text-center">
+            <h2 class="text-xl font-bold tracking-tight text-slate-900">Pilah Hasil Foto (Wajib Hapus 2)</h2>
+            <p id="quota-text" class="text-xs font-semibold mt-0.5 px-3 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full inline-block">Memuat...</p>
+        </div>
+        <div id="photo-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 w-full max-w-4xl"></div>
+        <button id="btn-submit-pilah" onclick="saveSelection()" disabled class="px-8 py-3.5 bg-slate-300 text-slate-500 font-bold text-sm rounded-full shadow-sm cursor-not-allowed transition-all duration-200">Lanjut ke Pemilihan Frame (Sisa Foto Harus 3) &rarr;</button>
+    </section>
+
+    <section id="page-frame" class="hidden page-transition container mx-auto px-6 py-4 flex flex-col items-center justify-center flex-1 space-y-8">
+
+    <div class="text-center">
+        <h2 class="text-2xl font-bold">Pilih Frame</h2>
+        <p class="text-sm text-slate-500">
+            Foto tidak berubah posisi, frame hanya menempel di atas layout.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl w-full">
+
+        <button onclick="selectFrame('classic')"
+            class="p-4 rounded-xl border bg-white">
+            🤍 Classic White
+        </button>
+
+        <button onclick="selectFrame('blue')"
+            class="p-4 rounded-xl border bg-white">
+            💙 Blue Sky
+        </button>
+
+        <button onclick="selectFrame('pink')"
+            class="p-4 rounded-xl border bg-white">
+            💖 Pink Cute
+        </button>
+
+        <button onclick="selectFrame('black')"
+            class="p-4 rounded-xl border bg-white">
+            🖤 Black Elegant
+        </button>
+
+        <button onclick="selectFrame('floral')"
+            class="p-4 rounded-xl border bg-white">
+            🌸 Floral
+        </button>
+
+        <button onclick="selectFrame('minimal')"
+            class="p-4 rounded-xl border bg-white">
+            ✨ Minimal
+        </button>
+
+        <button onclick="navigate('page-pilah')">
+← Kembali
+</button>
+
+    </div>
+
+    <button
+        onclick="navigate('page-template')"
+        class="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold">
+        Lanjut ke Filter →
+    </button>
+
+</section>
+
+    <section id="page-template" class="hidden page-transition container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-center gap-12 flex-1 w-full max-w-3xl">
+        <div class="w-full md:w-1/2 flex flex-col items-center space-y-3">
+            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Strip Preview</h2>
+            <div class="bg-white p-4.5 rounded-sm shadow-xl border border-blue-50 w-56 flex flex-col items-center space-y-3">
+               <div id="preview-area"
+     class="grid grid-cols-2 gap-2 w-full filter-normal">
+</div>
+                    <p class="text-[8px] tracking-[0.2em] font-black text-slate-400 uppercase">✨ THUVUSBOOTH MEMORIES ✨</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 space-y-6">
+            <h2 class="text-lg font-bold text-slate-900 tracking-tight">Pilih Efek Warna</h2>
+            <div class="flex flex-col gap-2.5">
+                <button onclick="applyFilter('filter-normal')" class="p-3.5 bg-white/90 hover:bg-blue-50/50 border border-blue-100/60 hover:border-blue-400 rounded-xl text-left text-xs font-bold text-slate-700 cursor-pointer shadow-sm transition-all">✨ Original / Normal View</button>
+                <button onclick="applyFilter('filter-bw')" class="p-3.5 bg-white/90 hover:bg-blue-50/50 border border-blue-100/60 hover:border-blue-400 rounded-xl text-left text-xs font-bold text-slate-700 cursor-pointer shadow-sm transition-all">🖤 Hitam Putih Klasik (Mono)</button>
+                <button onclick="applyFilter('filter-vintage')" class="p-3.5 bg-white/90 hover:bg-blue-50/50 border border-blue-100/60 hover:border-blue-400 rounded-xl text-left text-xs font-bold text-slate-700 cursor-pointer shadow-sm transition-all">🍂 Retro Vintage Muted Warm</button>
+                <button onclick="applyFilter('filter-cool')" class="p-3.5 bg-white/90 hover:bg-blue-50/50 border border-blue-100/60 hover:border-blue-400 rounded-xl text-left text-xs font-bold text-slate-700 cursor-pointer shadow-sm transition-all">🔮 Soft Light Cool Blue</button>
+            </div>
+            <button onclick="navigate('page-email')" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-xl shadow-lg shadow-blue-600/10 cursor-pointer text-center transition-colors">Lanjut ke Pengisian Email</button>
+            <button onclick="navigate('page-frame')">
+← Kembali
+</button>
+        </div>
+    </section>
+
+    <section id="page-email" class="hidden page-transition container mx-auto px-6 flex flex-col items-center justify-center flex-1 space-y-6 max-w-md">
+        <div class="text-center space-y-1">
+            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-xl mx-auto mb-2 shadow-sm">✉️</div>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Kirim File Digital</h2>
+            <p class="text-slate-400 text-xs font-medium">Masukkan email aktif Anda untuk menerima semua hasil foto.</p>
+        </div>
+        <div class="w-full space-y-4 bg-white/80 border border-blue-100/70 p-6 rounded-2xl shadow-sm">
+            <div>
+                <label for="user-email" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Alamat Email</label>
+                <input type="email" id="user-email" placeholder="contoh@email.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white shadow-inner">
+            </div>
+            <button onclick="simpanEmailDanLanjut()" class="w-full py-3.5 bg-slate-900 hover:bg-blue-600 text-white font-bold text-sm rounded-xl shadow-md transition-all cursor-pointer">Simpan & Lanjut ke Pembayaran</button>
+            <button onclick="navigate('page-template')">
+← Kembali
+</button>
+        </div>
+    </section>
+
+    <section id="page-pembayaran" class="hidden page-transition container mx-auto px-6 flex flex-col items-center justify-center flex-1 space-y-6 max-w-md">
+        <div class="text-center space-y-1">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Metode Pembayaran</h2>
+            <p id="summary-text" class="text-slate-400 text-xs font-medium"></p>
+        </div>
+        <div class="w-full flex flex-col gap-3">
+            <button onclick="prosesBayar('QRIS')" class="p-4 bg-white/90 hover:bg-blue-50/50 border border-blue-100/60 hover:border-blue-400 rounded-2xl flex items-center justify-between shadow-sm cursor-pointer group transition-all">
+                <div class="flex items-center gap-3.5"><span class="text-2xl">📱</span><div class="text-left"><h3 class="font-bold text-sm text-slate-900">QRIS Interaktif</h3><p class="text-[11px] text-slate-400 font-medium">Otomatis scan via e-wallet</p></div></div><span class="text-blue-400 group-hover:text-blue-600 transition-colors">&rarr;</span>
+            </button>
+            <button onclick="prosesBayar('Tunai')" class="p-4 bg-white/90 hover:bg-blue-50/50 border border-blue-100/60 hover:border-blue-400 rounded-2xl flex items-center justify-between shadow-sm cursor-pointer group transition-all">
+                <div class="flex items-center gap-3.5"><span class="text-2xl">💵</span><div class="text-left"><h3 class="font-bold text-sm text-slate-900">Tunai Mandiri</h3><p class="text-[11px] text-slate-400 font-medium">Bayar tunai langsung di kasir</p></div></div><span class="text-blue-400 group-hover:text-blue-600 transition-colors">&rarr;</span>
+            </button>
+            <button onclick="navigate('page-email')">
+← Kembali
+</button>
+        </div>
+    </section>
+
+    <section id="page-close" class="hidden page-transition container mx-auto px-6 flex flex-col items-center justify-center text-center flex-1 space-y-5">
+        <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center text-2xl shadow-sm border border-emerald-100">✓</div>
+        <div class="max-w-md space-y-2">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900">Pembayaran Sukses</h2>
+            <p class="text-slate-400 text-xs font-medium">Foto fisik Anda sedang diproses cetak oleh sistem.</p>
+            
+            <div class="mt-4 p-4 bg-emerald-50 border border-emerald-200/60 rounded-2xl text-left flex gap-3 shadow-inner">
+                <span class="text-xl">📩</span>
+                <div>
+                    <h4 class="text-xs font-bold text-emerald-950 uppercase tracking-wide">File Digital Dikirim!</h4>
+                    <p class="text-[11px] text-emerald-700 font-medium mt-0.5">Foto telah berhasil dikirimkan ke alamat email: <span id="display-user-email" class="font-bold underline text-slate-800"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="pt-2"><button onclick="resetSesi()" class="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-full shadow-md cursor-pointer transition-colors">Selesai & Menu Utama</button></div>
+    </section>
+
+    <button onclick="navigate('page-index')"
+class="px-4 py-2 bg-slate-200 hover:bg-slate-300 rounded-lg text-sm font-semibold">
+← Kembali ke Menu Utama
+</button>
+<button
+onclick="navigate('page-frame')"
+class="px-4 py-2 border border-slate-300 rounded-xl text-sm font-semibold hover:bg-slate-100 transition">
+← Kembali
+</button>
+
+    <script>
+        // INTEGRASI OTOMATIS PUBLIC KEY KANVAS
+        (function() {
+            emailjs.init("a5HH0JkDF9eJlQusg"); 
+        })();
+
+        const video = document.getElementById('webcam');
+        const canvas = document.getElementById('capture-canvas');
+        const context = canvas.getContext('2d');
+        const cameraSelect = document.getElementById('camera-select');
+        const cameraWidget = document.getElementById('camera-widget');
+        
+        let currentStream = null;
+        let photosTaken = [];
+        let deletedCount = 0;
+        const requiredDeletions = 2;
+       let selectedPackage = "";
+let selectedSize = "";
+let selectedFrame = "classic";
+let inputedEmail = "";
+let currentSelectedFilter = "Original View / Normal";
+
+        function navigate(pageId) {
+            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+            const activeSection = document.getElementById(pageId);
+            activeSection.classList.remove('hidden');
+            
+            if(pageId === 'page-foto') {
+                cameraWidget.classList.remove('hidden');
+                getCameraDevices();
+            } else {
+                cameraWidget.classList.add('hidden');
+                stopCamera();
+            }
+        }
+
+        async function getCameraDevices() {
+            try {
+                await navigator.mediaDevices.getUserMedia({ video: true });
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const videoDevices = devices.filter(d => d.kind === 'videoinput');
+                cameraSelect.innerHTML = '';
+                videoDevices.forEach((device, index) => {
+                    const opt = document.createElement('option');
+                    opt.value = device.deviceId;
+                    opt.text = device.label || `Kamera Eksternal ${index + 1}`;
+                    cameraSelect.appendChild(opt);
+                });
+                if (videoDevices.length > 1) cameraSelect.selectedIndex = 1;
+                startCamera(cameraSelect.value);
+            } catch (err) { alert("Akses kamera ditolak."); }
+        }
+
+        async function startCamera(deviceId) {
+            stopCamera();
+            try {
+                currentStream = await navigator.mediaDevices.getUserMedia({
+                    video: { deviceId: deviceId ? { exact: deviceId } : undefined, width: 1280, height: 720 }, audio: false
+                });
+                video.srcObject = currentStream;
+            } catch (err) { 
+                document.getElementById('status').innerHTML = '<p class="text-red-500 font-bold text-xs">Kamera bermasalah.</p>'; 
+            }
+        }
+
+        function stopCamera() {
+            if (currentStream) currentStream.getTracks().forEach(track => track.stop());
+        }
+
+        cameraSelect.addEventListener('change', () => startCamera(cameraSelect.value));
+
+        function pilihPaket(namaPaket) {
+
+    selectedPackage = namaPaket;
+
+    if(namaPaket === 'Paket Besar A3'){
+        selectedSize = 'A3';
+    } else {
+        selectedSize = '4R';
+    }
+
+    document.getElementById('summary-text').textContent =
+        `Format cetakan: ${namaPaket} (${selectedSize})`;
+
+    navigate('page-foto');
+}
+
+        function startPhotoSession() {
+            document.getElementById('btn-jepret').classList.add('hidden');
+            cameraSelect.disabled = true;
+            photosTaken = [];
+            let currentPhotoCount = 0;
+
+            function takeNextPhoto() {
+                if (currentPhotoCount >= 5) {
+                    document.getElementById('btn-jepret').classList.remove('hidden');
+                    cameraSelect.disabled = false;
+                    renderPilahFoto();
+                    navigate('page-pilah');
+                    return;
+                }
+
+                let counter = 3;
+                const overlay = document.getElementById('countdown-overlay');
+                const num = document.getElementById('countdown-number');
+                overlay.classList.remove('hidden');
+                num.textContent = counter;
+
+                let timer = setInterval(() => {
+                    counter--;
+                    if (counter > 0) { 
+                        num.classList.remove('animate-ping');
+                        num.offsetHeight; 
+                        num.classList.add('animate-ping');
+                        num.textContent = counter; 
+                    } else {
+                        clearInterval(timer);
+                        overlay.classList.add('hidden');
+                        
+                        document.getElementById('flash-overlay').style.opacity = '1';
+                        setTimeout(() => { document.getElementById('flash-overlay').style.opacity = '0'; }, 100);
+
+                        context.translate(canvas.width, 0);
+                        context.scale(-1, 1);
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        context.setTransform(1, 0, 0, 1, 0, 0);
+
+                        // Kualitas kompresi seimbang (0.7) untuk menjaga ketajaman file di EmailJS
+                        photosTaken.push(canvas.toDataURL('image/jpeg', 0.7)); 
+                        currentPhotoCount++;
+                        setTimeout(takeNextPhoto, 1000);
+                    }
+                }, 1000);
+            }
+            takeNextPhoto();
+        }
+
+        function renderPilahFoto() {
+            deletedCount = 0;
+            const grid = document.getElementById('photo-grid');
+            grid.innerHTML = '';
+            
+            photosTaken.forEach((url, idx) => {
+                const box = document.createElement('div');
+                box.id = `photo-box-${idx}`;
+                box.className = "relative bg-white rounded-xl overflow-hidden border border-blue-100 shadow-sm aspect-[4/3]";
+                box.innerHTML = `
+                    <img src="${url}" class="w-full h-full object-cover">
+                    <button id="btn-del-${idx}" onclick="hapusFotoSatu(${idx})" class="absolute top-1.5 right-1.5 bg-white/95 hover:bg-red-50 p-1 px-2 rounded-lg border border-blue-100 text-[10px] text-slate-600 hover:text-red-600 font-bold cursor-pointer transition-colors">Hapus</button>
+                `;
+                grid.appendChild(box);
+            });
+            updatePilahValidationStatus();
+        }
+
+        function hapusFotoSatu(idx) {
+            if (confirm("Hapus foto pilihan ini dari daftar kirim?")) {
+                document.getElementById(`photo-box-${idx}`).style.opacity = "0.3";
+                const btnDel = document.getElementById(`btn-del-${idx}`);
+                if (btnDel) { btnDel.disabled = true; btnDel.className = "hidden"; }
+                photosTaken[idx] = null;
+                deletedCount++;
+                updatePilahValidationStatus();
+            }
+        }
+
+        function updatePilahValidationStatus() {
+            const txtQuota = document.getElementById('quota-text');
+            const btnSubmit = document.getElementById('btn-submit-pilah');
+            const remainingTarget = requiredDeletions - deletedCount;
+
+            if (remainingTarget > 0) {
+                txtQuota.className = "text-xs font-semibold mt-0.5 px-3 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full inline-block animate-pulse";
+                txtQuota.textContent = `Wajib hapus ${remainingTarget} foto lagi agar tersisa 3 foto!`;
+                btnSubmit.disabled = true;
+                btnSubmit.className = "px-8 py-3.5 bg-slate-300 text-slate-500 font-bold text-sm rounded-full shadow-sm cursor-not-allowed";
+            } else {
+                txtQuota.className = "text-xs font-semibold mt-0.5 px-3 py-1 bg-emerald-50 text-emerald-700 border border-amber-200 rounded-full inline-block";
+                txtQuota.textContent = "✓ Kuota Pas! Sisa 3 foto siap dikirim.";
+                btnSubmit.disabled = false;
+                btnSubmit.className = "px-8 py-3.5 bg-slate-900 hover:bg-blue-600 text-white font-bold text-sm rounded-full shadow-md cursor-pointer";
+            }
+        }
+
+        function saveSelection() {
+
+    const finalPhotos = photosTaken.filter(
+        url => url !== null
+    );
+
+    const area = document.getElementById('preview-area');
+
+    area.innerHTML = '';
+
+    const strip1 = document.createElement('div');
+    strip1.className = 'flex flex-col gap-2';
+
+    const strip2 = document.createElement('div');
+    strip2.className = 'flex flex-col gap-2';
+
+    finalPhotos.forEach(url => {
+
+        const img1 = document.createElement('img');
+
+        img1.src = url;
+
+        img1.className =
+        "w-full object-cover aspect-[4/3] rounded border border-blue-50";
+
+        strip1.appendChild(img1);
+
+        const img2 = document.createElement('img');
+
+        img2.src = url;
+
+        img2.className =
+        "w-full object-cover aspect-[4/3] rounded border border-blue-50";
+
+        strip2.appendChild(img2);
+
+    });
+
+    area.appendChild(strip1);
+    area.appendChild(strip2);
+
+    navigate('page-frame');
+
+}
+
+        function selectFrame(frame){
+     selectedFrame = frame;
+}
+
+        function applyFilter(filterClass) {
+            if (filterClass === 'filter-normal') currentSelectedFilter = "Original View / Normal";
+            if (filterClass === 'filter-bw') currentSelectedFilter = "Hitam Putih Klasik (Mono)";
+            if (filterClass === 'filter-vintage') currentSelectedFilter = "Retro Vintage Muted Warm";
+            if (filterClass === 'filter-cool') currentSelectedFilter = "Soft Light Cool Blue";
+
+            document.getElementById('preview-area').className =
+`grid grid-cols-2 gap-2 w-full ${filterClass}`;
+        }
+
+        function simpanEmailDanLanjut() {
+            const emailInput = document.getElementById('user-email').value.trim();
+            if (!emailInput || !emailInput.includes('@') || !emailInput.includes('.')) {
+                alert("Silakan masukkan alamat email yang valid.");
+                return;
+            }
+            inputedEmail = emailInput;
+            document.getElementById('display-user-email').textContent = inputedEmail;
+            navigate('page-pembayaran');
+        }
+
+        function prosesBayar(metode) {
+            alert(`Metode ${metode} diproses. Mohon tunggu, sedang mengirim via EmailJS...`);
+            
+            const finalPhotos = photosTaken.filter(url => url !== null);
+
+            const templateParams = {
+                to_email: inputedEmail,
+                filter_used: currentSelectedFilter,
+                photo_1: finalPhotos[0] || "",
+                photo_2: finalPhotos[1] || "",
+                photo_3: finalPhotos[2] || ""
+            };
+
+            // INTEGRASI OTOMATIS TEMPLATE ID & SERVICE ID KANVAS
+            emailjs.send('service_u7tfblv', 'template_tolxa7e', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    navigate('page-close');
+                }, function(error) {
+                    console.error('FAILED...', error);
+                    alert("Gagal kirim email. Pastikan kredensial EmailJS aktif.");
+                });
+        }
+
+        function resetSesi() {
+            photosTaken = [];
+            deletedCount = 0;
+            selectedPackage = "";
+            inputedEmail = "";
+            currentSelectedFilter = "Original View / Normal";
+            document.getElementById('user-email').value = "";
+            navigate('page-index');
+        }
+    </script>
+</body>
+</html>
